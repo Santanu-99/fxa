@@ -34,13 +34,10 @@ const createErrorMock = (email: string) => ({
   request: {
     query: RESEND_SECONDARY_EMAIL_CODE_MUTATION,
     variables: { input: { email } },
+    // errorPolicy: 'all',
+    // onError: () => null,
   },
-  result: {
-    data: null,
-    error: {
-      message: 'Aw shucks',
-    },
-  },
+  error: new Error('Aw shucks'),
 });
 
 describe('UnitRowSecondaryEmail', () => {
@@ -317,6 +314,7 @@ describe('UnitRowSecondaryEmail', () => {
       const mocks = [createErrorMock('johndope2@example.com')];
 
       const { rerender } = render(<AlertBarRootAndContextProvider />);
+
       rerender(
         <MockedProvider {...{ mocks, cache }}>
           <AlertBarRootAndContextProvider>
@@ -331,13 +329,11 @@ describe('UnitRowSecondaryEmail', () => {
         );
       });
       expect(
+        screen.getByTestId('resend-secondary-email-code-error')
+      ).toBeInTheDocument();
+      expect(
         screen.queryByTestId('resend-secondary-email-code-success')
       ).not.toBeInTheDocument();
-
-      // TODO: This fails and will be addressed in an immediate follow up.
-      // expect(
-      //   screen.queryByTestId('resend-secondary-email-code-error')
-      // ).toBeInTheDocument();
     });
   });
 });

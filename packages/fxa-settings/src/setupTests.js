@@ -4,6 +4,6 @@
 
 import '@testing-library/jest-dom/extend-expect';
 
-window.console.error = jest.fn();
-window.console.log = jest.fn();
+// window.console.error = jest.fn();
+// window.console.log = jest.fn();
 window.console.warn = jest.fn();

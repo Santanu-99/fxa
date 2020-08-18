@@ -39,6 +39,7 @@ export const UnitRowSecondaryEmail = () => {
   const [resendSecondaryEmailCode, { data, error }] = useMutation(
     RESEND_SECONDARY_EMAIL_CODE_MUTATION
   );
+  console.log('error ***', error);
 
   const UnitRowSecondaryEmailNotSet = () => {
     const [modalRevealed, revealModal, hideModal] = useBooleanState();
@@ -135,6 +136,7 @@ export const UnitRowSecondaryEmail = () => {
             )}
             {error && (
               <p data-testid="resend-secondary-email-code-error">
+                {console.log('in paragraph', error.message)}
                 Error text TBD. {error.message}
               </p>
             )}
